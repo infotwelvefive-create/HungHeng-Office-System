@@ -1,109 +1,149 @@
-
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hung Heng — ระบบจัดการคำร้องสำนักงาน</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--blue:#1565C0;--blue-l:#E3F2FD;--green:#2E7D32;--green-l:#E8F5E9;--teal:#00695C;--teal-l:#E0F2F1;--purple:#6A1B9A;--purple-l:#F3E5F5;--border:#E0E0E0;--bg:#F0F4F8;--card:#fff;--text:#212121;--muted:#757575;--r:10px;--sh:0 2px 10px rgba(0,0,0,.09)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--text);font-size:15px}
-#app{max-width:920px;margin:0 auto;padding:14px}
-.hdr{background:#0D47A1;color:#fff;border-radius:var(--r);padding:18px 22px;margin-bottom:16px;display:flex;align-items:center;gap:14px}
-.hdr h1{font-size:18px;font-weight:700}.hdr p{font-size:12px;opacity:.8;margin-top:2px}
-.nav{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:18px}
-.nb{padding:13px 10px;border-radius:var(--r);border:2px solid transparent;cursor:pointer;text-align:left;background:var(--card);box-shadow:var(--sh);transition:all .15s}
-.nb .ic{font-size:20px;display:block;margin-bottom:4px}
-.nb .lb{font-size:13px;font-weight:700;display:block}
-.nb .sb{font-size:10px;opacity:.7;margin-top:1px;display:block}
-.nb.c1{color:var(--blue)}.nb.c2{color:var(--green)}.nb.c4{color:var(--teal)}.nb.c5{color:var(--purple)}
-.nb.active,.nb:hover{border-color:currentColor}
-.nb.c1.active,.nb.c1:hover{background:var(--blue-l)}
-.nb.c2.active,.nb.c2:hover{background:var(--green-l)}
-.nb.c4.active,.nb.c4:hover{background:var(--teal-l)}
-.nb.c5.active,.nb.c5:hover{background:var(--purple-l)}
-.sec{display:none}.sec.on{display:block}
-.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:18px 20px;margin-bottom:14px}
-.ct{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;padding-bottom:11px;border-bottom:1.5px solid var(--border)}
-.tag{font-size:10px;font-weight:700;padding:2px 10px;border-radius:20px;margin-left:6px}
-.notice{background:#FFF8E1;border:1.5px solid #FFD54F;border-radius:8px;padding:11px 13px;font-size:12px;color:#5D4037;margin-bottom:13px;line-height:1.6}
+body{font-family:'Sarabun',sans-serif;background:#F0F4F8;color:#212121;font-size:15px}
+#app{max-width:680px;margin:0 auto;padding:14px}
+.hdr{background:#0D47A1;color:#fff;border-radius:12px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.hdr h1{font-size:16px;font-weight:700}.hdr p{font-size:11px;opacity:.8;margin-top:2px}
+.home-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
+.home-card{background:#fff;border-radius:12px;padding:20px 16px;cursor:pointer;border:2px solid transparent;box-shadow:0 2px 8px rgba(0,0,0,.08);transition:all .18s;text-align:center}
+.home-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.13)}
+.home-card .hc-ic{font-size:36px;display:block;margin-bottom:10px}
+.home-card .hc-title{font-size:14px;font-weight:700;display:block;margin-bottom:4px}
+.home-card .hc-sub{font-size:11px;opacity:.65;display:block}
+.hc1{border-color:#BBDEFB;color:#1565C0}.hc1:hover{background:#E3F2FD}
+.hc2{border-color:#C8E6C9;color:#2E7D32}.hc2:hover{background:#E8F5E9}
+.hc3{border-color:#B2EBF2;color:#00695C}.hc3:hover{background:#E0F2F1}
+.hc4{border-color:#E1BEE7;color:#6A1B9A}.hc4:hover{background:#F3E5F5}
+.page{display:none}.page.on{display:block}
+.page-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1.5px solid #E0E0E0}
+.back-btn{background:#fff;border:1.5px solid #E0E0E0;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:5px;flex-shrink:0;font-family:inherit}
+.back-btn:hover{background:#F5F5F5}
+.page-title{font-size:16px;font-weight:700}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);padding:18px 18px;margin-bottom:14px}
+.notice{background:#FFF8E1;border:1.5px solid #FFD54F;border-radius:8px;padding:10px 13px;font-size:12px;color:#5D4037;margin-bottom:13px;line-height:1.6}
 .notice strong{color:#E65100}
-.success{background:var(--green-l);border:1.5px solid #66BB6A;border-radius:8px;padding:14px;text-align:center;color:#1B5E20;font-weight:600;font-size:13px;margin-bottom:13px;display:none}
+.success{background:#E8F5E9;border:1.5px solid #66BB6A;border-radius:8px;padding:14px;text-align:center;color:#1B5E20;font-weight:600;font-size:13px;margin-bottom:13px;display:none}
 .fg{margin-bottom:12px}
-.fg label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.fg label{display:block;font-size:12px;font-weight:600;color:#757575;margin-bottom:4px}
 .fg label .r{color:#c62828;margin-left:2px}
-.fg input,.fg select,.fg textarea{width:100%;padding:8px 11px;border:1.5px solid var(--border);border-radius:7px;font-size:14px;font-family:inherit;background:#FAFAFA;transition:border-color .14s}
-.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--blue);background:#fff}
-.fg textarea{min-height:74px;resize:vertical}
-.r2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
-.rg,.cg{display:flex;flex-direction:column;gap:7px}
-.ri,.ci{display:flex;align-items:center;gap:9px;font-size:13px;padding:8px 11px;border-radius:7px;border:1.5px solid var(--border);cursor:pointer;background:#FAFAFA}
-.ri:hover,.ci:hover{background:var(--blue-l);border-color:var(--blue)}
-.ri input,.ci input{accent-color:var(--blue);width:15px;height:15px}
-.ug{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.ui{text-align:center;padding:9px 6px;border-radius:7px;border:1.5px solid var(--border);cursor:pointer;font-size:11px;background:#FAFAFA}
-.ui:hover{border-color:var(--blue);background:var(--blue-l)}
-.ui input{display:none}.ui .ue{font-size:18px;display:block;margin-bottom:3px}
-.fu{border:2px dashed var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;background:#FAFAFA}
-.fu:hover{border-color:var(--blue);background:var(--blue-l)}
-.fu .fi{font-size:24px;display:block;margin-bottom:4px}
-.fu p{font-size:12px;color:var(--muted)}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 12px;border:1.5px solid #E0E0E0;border-radius:8px;font-size:14px;font-family:inherit;background:#FAFAFA;transition:border-color .14s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:#1565C0;background:#fff}
+.fg textarea{min-height:76px;resize:vertical}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.r3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.cg,.rg{display:flex;flex-direction:column;gap:6px}
+.ci,.ri{display:flex;align-items:center;gap:9px;font-size:13px;padding:8px 11px;border-radius:8px;border:1.5px solid #E0E0E0;cursor:pointer;background:#FAFAFA;user-select:none}
+.ci:hover,.ri:hover{background:#E3F2FD;border-color:#1565C0}
+.ci input,.ri input{accent-color:#1565C0;width:15px;height:15px;flex-shrink:0}
+.ug{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ug-item{border:2px solid #E0E0E0;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;background:#fff;transition:all .15s;user-select:none}
+.ug-item .ug-dot{width:18px;height:18px;border-radius:50%;display:block;margin:0 auto 6px}
+.ug-item .ug-lbl{font-size:12px;font-weight:600;display:block}
+.ug-item.sel-normal{border-color:#4CAF50;background:#E8F5E9}
+.ug-item.sel-urgent{border-color:#FFC107;background:#FFF8E1}
+.ug-item.sel-asap{border-color:#F44336;background:#FFEBEE}
+.fu{border:2px dashed #E0E0E0;border-radius:8px;padding:14px;text-align:center;cursor:pointer;background:#FAFAFA}
+.fu:hover{border-color:#1565C0;background:#E3F2FD}
+.fu .fi{font-size:22px;display:block;margin-bottom:4px}
+.fu p{font-size:12px;color:#757575}
 .fu input{display:none}
 .fuReq{border-color:#E57373}
-.ip{margin-top:7px;display:flex;flex-wrap:wrap;gap:7px}
-.ip img{width:72px;height:72px;object-fit:cover;border-radius:6px;border:1.5px solid var(--border)}
-.sb{width:100%;padding:12px;border-radius:var(--r);border:none;font-size:14px;font-weight:700;cursor:pointer;color:#fff;letter-spacing:.4px;transition:opacity .14s;margin-top:4px}
-.sb:hover{opacity:.87}
-.sb.s1{background:var(--blue)}.sb.s2{background:var(--green)}.sb.s4{background:var(--teal)}.sb.s5{background:var(--purple)}
-.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.cat-item{display:flex;align-items:center;gap:8px;font-size:12px;padding:7px 10px;border-radius:7px;border:1.5px solid var(--border);cursor:pointer;background:#FAFAFA}
-.cat-item:hover{background:var(--teal-l);border-color:var(--teal)}
-.cat-item input{accent-color:var(--teal);width:14px;height:14px}
-.total-box{background:var(--teal-l);border:1.5px solid #80CBC4;border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-.total-box .tl{font-size:13px;color:var(--teal);font-weight:600}
-.total-box .tv{font-size:20px;font-weight:700;color:var(--teal)}
-.rf{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}
-.rf select,.rf input{flex:1;min-width:130px;padding:7px 11px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;background:#fff}
-.rf button{padding:7px 16px;background:var(--purple);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer}
+.ip{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+.ip img{width:68px;height:68px;object-fit:cover;border-radius:6px;border:1.5px solid #E0E0E0}
+.submit-btn{width:100%;padding:13px;border-radius:10px;border:none;font-size:15px;font-weight:700;cursor:pointer;color:#fff;letter-spacing:.3px;transition:opacity .14s;margin-top:6px}
+.submit-btn:hover{opacity:.87}
+.btn-blue{background:#1565C0}.btn-green{background:#2E7D32}.btn-teal{background:#00695C}.btn-purple{background:#6A1B9A}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.cat-item{display:flex;align-items:center;gap:8px;font-size:12px;padding:7px 10px;border-radius:8px;border:1.5px solid #E0E0E0;cursor:pointer;background:#FAFAFA;user-select:none}
+.cat-item:hover{background:#E0F2F1;border-color:#00695C}
+.cat-item input{accent-color:#00695C;width:14px;height:14px;flex-shrink:0}
+.total-box{background:#E0F2F1;border:1.5px solid #80CBC4;border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.total-box .tl{font-size:13px;color:#00695C;font-weight:600}
+.total-box .tv{font-size:20px;font-weight:700;color:#00695C}
+.rf{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.rf select,.rf input{flex:1;min-width:120px;padding:7px 10px;border:1.5px solid #E0E0E0;border-radius:7px;font-size:13px;font-family:inherit;background:#fff}
+.rf button{padding:7px 14px;background:#6A1B9A;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer}
 .rtw{overflow-x:auto}
 .rt{width:100%;border-collapse:collapse;font-size:12px}
-.rt th{background:#ECEFF1;padding:8px 9px;text-align:left;font-weight:700;border-bottom:2px solid var(--border);white-space:nowrap}
-.rt td{padding:7px 9px;border-bottom:1px solid var(--border);vertical-align:top}
+.rt th{background:#EDE7F6;padding:8px;text-align:left;font-weight:700;border-bottom:2px solid #E0E0E0;white-space:nowrap;color:#4A148C}
+.rt td{padding:7px 8px;border-bottom:1px solid #E0E0E0;vertical-align:top}
 .rt tr:hover td{background:#F5F5F5}
 .bd{display:inline-block;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700}
-.b1{background:var(--blue-l);color:var(--blue)}.b2{background:var(--green-l);color:var(--green)}.b4{background:var(--teal-l);color:var(--teal)}
+.b1{background:#E3F2FD;color:#1565C0}.b2{background:#E8F5E9;color:#2E7D32}.b3{background:#E0F2F1;color:#00695C}
 .bOk{background:#E8F5E9;color:#2E7D32}.bPend{background:#FFF8E1;color:#E65100}.bNo{background:#FFEBEE;color:#C62828}
-.lgbox{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:28px;max-width:360px;margin:32px auto;text-align:center}
-.lgbox h2{font-size:17px;font-weight:700;margin-bottom:5px}.lgbox p{font-size:12px;color:var(--muted);margin-bottom:18px}
-.lgbox input{width:100%;padding:9px 13px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:9px}
-.lgbox button{width:100%;padding:11px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+.lgbox{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);padding:28px;max-width:340px;margin:28px auto;text-align:center}
+.lgbox h2{font-size:16px;font-weight:700;margin-bottom:5px}
+.lgbox p{font-size:12px;color:#757575;margin-bottom:16px}
+.lgbox input{width:100%;padding:9px 12px;border:1.5px solid #E0E0E0;border-radius:8px;font-size:14px;font-family:inherit;margin-bottom:9px}
+.lgbox button{width:100%;padding:11px;background:#6A1B9A;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer}
+.spinner{display:none;text-align:center;padding:10px;font-size:13px;color:#1565C0}
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
-
+</head>
+<body>
 <div id="app">
+
+<!-- HEADER -->
 <div class="hdr">
-  <div style="font-size:26px">🏢</div>
+  <div style="font-size:24px">🏢</div>
   <div>
     <h1>Hung Heng Ltd., Part. — ระบบจัดการคำร้องสำนักงาน</h1>
-    <p>LINE Bot Messaging API · Google Sheets · ไม่สามารถแก้ไข/ลบข้อมูลได้</p>
+    <p>LINE Bot · Google Sheets · ไม่สามารถแก้ไข/ลบข้อมูลได้</p>
   </div>
 </div>
 
-<div class="nav">
-  <button class="nb c1 active" onclick="show('purchase',this)"><span class="ic">🛒</span><span class="lb">เบิกสั่งซื้ออุปกรณ์</span><span class="sb_">หมวด 1</span></button>
-  <button class="nb c2" onclick="show('cash',this)"><span class="ic">💵</span><span class="lb">เบิกเงินสดสำนักงาน</span><span class="sb_">หมวด 2</span></button>
-  <button class="nb c4" onclick="show('petty',this)"><span class="ic">🧾</span><span class="lb">เงินสดสำรองจ่าย</span><span class="sb_">หมวด 3 (ขอคืน)</span></button>
-  <button class="nb c5" onclick="show('report',this)"><span class="ic">📊</span><span class="lb">รายงานทั้งหมด</span><span class="sb_">เฉพาะผู้ดูแล</span></button>
+<!-- HOME -->
+<div id="page-home" class="page on">
+  <div class="home-grid">
+    <div class="home-card hc1" onclick="goPage('purchase')">
+      <span class="hc-ic">🛒</span>
+      <span class="hc-title">เบิกสั่งซื้ออุปกรณ์</span>
+      <span class="hc-sub">หมวด 1</span>
+    </div>
+    <div class="home-card hc2" onclick="goPage('cash')">
+      <span class="hc-ic">💵</span>
+      <span class="hc-title">เบิกเงินสดสำนักงาน</span>
+      <span class="hc-sub">หมวด 2</span>
+    </div>
+    <div class="home-card hc3" onclick="goPage('petty')">
+      <span class="hc-ic">🧾</span>
+      <span class="hc-title">เงินสดสำรองจ่าย</span>
+      <span class="hc-sub">หมวด 3 · ขอคืนเงิน</span>
+    </div>
+    <div class="home-card hc4" onclick="goPage('report')">
+      <span class="hc-ic">📊</span>
+      <span class="hc-title">รายงานทั้งหมด</span>
+      <span class="hc-sub">เฉพาะผู้ดูแล</span>
+    </div>
+  </div>
 </div>
 
-<!-- SECTION 1: PURCHASE -->
-<div id="sec-purchase" class="sec on">
+<!-- PAGE 1: PURCHASE -->
+<div id="page-purchase" class="page">
+<div class="page-hdr">
+  <button class="back-btn" onclick="goHome()">← กลับ</button>
+  <span class="page-title" style="color:#1565C0">🛒 เบิกสั่งซื้อสินค้าและอุปกรณ์</span>
+</div>
 <div class="card">
-  <div class="ct" style="color:var(--blue)">🛒 ฟอร์มเบิกสั่งซื้อสินค้าและอุปกรณ์ <span class="tag" style="background:var(--blue-l);color:var(--blue)">หมวด 1</span></div>
-  <div class="notice">⚠️ <strong>ข้อกำหนด:</strong> หลังส่งแล้วไม่สามารถแก้ไขหรือลบได้ · ระบบจะแจ้งหัวหน้าทาง LINE Bot ทันที</div>
-  <div class="success" id="ok-purchase">✅ ส่งคำร้องแล้ว! แจ้งหัวหน้าทาง LINE แล้ว</div>
+  <div class="notice">⚠️ <strong>ข้อกำหนด:</strong> หลังส่งแล้วไม่สามารถแก้ไขหรือลบได้ · ระบบแจ้งหัวหน้าทาง LINE Bot ทันที</div>
+  <div class="success" id="ok-purchase">✅ ส่งคำร้องแล้ว! กำลังแจ้งหัวหน้าทาง LINE...</div>
+  <div class="spinner" id="spin-purchase">⏳ กำลังส่งข้อมูล...</div>
   <div class="r2">
     <div class="fg"><label>ชื่อผู้เบิก <span class="r">*</span></label><input id="p-name" type="text" placeholder="ชื่อ-นามสกุล"></div>
     <div class="fg"><label>วันที่แจ้ง <span class="r">*</span></label><input id="p-date" type="date"></div>
   </div>
   <div class="fg"><label>สาขา <span class="r">*</span></label>
-    <select id="p-branch"><option value="">-- เลือกสาขา --</option><option>OX</option><option>The 11th Entry</option><option>Bluenin</option><option>Twelvefive125 ริวลาย</option><option>Twelvefive125 ท่าแพ</option></select>
+    <select id="p-branch">
+      <option value="">-- เลือกสาขา --</option>
+      <option>OX</option><option>The 11th Entry</option><option>Bluenin</option>
+      <option>Twelvefive125 วัวลาย</option><option>Twelvefive125 ท่าแพ</option>
+    </select>
   </div>
   <div class="fg"><label>หมวดหมู่สินค้า <span class="r">*</span></label>
     <div class="cg" id="p-cat">
@@ -121,27 +161,44 @@ body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--text);fon
     <div class="fg"><label>จำนวน</label><input id="p-qty" type="text" placeholder="เช่น 3 ชิ้น"></div>
     <div class="fg"><label>เหตุผล/ความจำเป็น <span class="r">*</span></label><input id="p-reason" type="text" placeholder="เหตุผลในการเบิก"></div>
   </div>
-  <div class="fg"><label>ระดับความเร่งด่วน</label>
-    <div class="ug">
-      <label class="ui"><input type="radio" name="p-urg" value="ปกติ" checked><span class="ue">🟢</span>ปกติ</label>
-      <label class="ui"><input type="radio" name="p-urg" value="เร่งด่วน"><span class="ue">🟡</span>เร่งด่วน 1–3 วัน</label>
-      <label class="ui"><input type="radio" name="p-urg" value="ด่วนมาก"><span class="ue">🔴</span>ด่วนมาก ทันที</label>
+  <div class="fg">
+    <label>ระดับความเร่งด่วน</label>
+    <div class="ug" id="ug-purchase">
+      <div class="ug-item sel-normal" data-val="ปกติ" onclick="selUrgency('purchase',this,'sel-normal')">
+        <span class="ug-dot" style="background:#4CAF50"></span>
+        <span class="ug-lbl">ปกติ</span>
+      </div>
+      <div class="ug-item" data-val="เร่งด่วน" onclick="selUrgency('purchase',this,'sel-urgent')">
+        <span class="ug-dot" style="background:#FFC107"></span>
+        <span class="ug-lbl">เร่งด่วน 1–3 วัน</span>
+      </div>
+      <div class="ug-item" data-val="ด่วนมาก" onclick="selUrgency('purchase',this,'sel-asap')">
+        <span class="ug-dot" style="background:#F44336"></span>
+        <span class="ug-lbl">ด่วนมาก ทันที</span>
+      </div>
     </div>
   </div>
   <div class="fg"><label>รูปภาพ/ลิงค์สินค้า</label>
-    <div class="fu" onclick="document.getElementById('p-file').click()"><span class="fi">📎</span><p>คลิกเพื่ออัปโหลด JPG, PNG, PDF</p><input type="file" id="p-file" multiple accept="image/*,application/pdf" onchange="prev('p-file','p-ip')"></div>
+    <div class="fu" onclick="document.getElementById('p-file').click()">
+      <span class="fi">📎</span><p>คลิกเพื่ออัปโหลด JPG, PNG, PDF</p>
+      <input type="file" id="p-file" multiple accept="image/*,application/pdf" onchange="prev('p-file','p-ip')">
+    </div>
     <div class="ip" id="p-ip"></div>
   </div>
-  <button class="sb s1" onclick="sub('purchase')">📤 ส่งคำร้องเบิกสั่งซื้ออุปกรณ์</button>
+  <button class="submit-btn btn-blue" onclick="sub('purchase')">📤 ส่งคำร้องเบิกสั่งซื้ออุปกรณ์</button>
 </div>
 </div>
 
-<!-- SECTION 2: CASH -->
-<div id="sec-cash" class="sec">
+<!-- PAGE 2: CASH -->
+<div id="page-cash" class="page">
+<div class="page-hdr">
+  <button class="back-btn" onclick="goHome()">← กลับ</button>
+  <span class="page-title" style="color:#2E7D32">💵 เบิกเงินสดสำนักงาน</span>
+</div>
 <div class="card">
-  <div class="ct" style="color:var(--green)">💵 ฟอร์มเบิกเงินสดสำนักงาน <span class="tag" style="background:var(--green-l);color:var(--green)">หมวด 2</span></div>
   <div class="notice">⚠️ <strong>ข้อกำหนด:</strong> หลังส่งแล้วไม่สามารถแก้ไขหรือลบได้</div>
-  <div class="success" id="ok-cash">✅ ส่งคำร้องแล้ว! แจ้งหัวหน้าทาง LINE แล้ว</div>
+  <div class="success" id="ok-cash">✅ ส่งคำร้องแล้ว! กำลังแจ้งหัวหน้าทาง LINE...</div>
+  <div class="spinner" id="spin-cash">⏳ กำลังส่งข้อมูล...</div>
   <div class="r2">
     <div class="fg"><label>วันที่เบิก <span class="r">*</span></label><input id="c-date" type="date"></div>
     <div class="fg"><label>ชื่อผู้รับเงิน <span class="r">*</span></label><input id="c-name" type="text" placeholder="ชื่อ-นามสกุล"></div>
@@ -162,25 +219,36 @@ body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--text);fon
     <div class="fg"><label>หมายเหตุ</label><input id="c-note" type="text" placeholder="ระบุเพิ่มเติม"></div>
   </div>
   <div class="fg"><label>รูปถ่าย/หลักฐานการรับเงิน</label>
-    <div class="fu" onclick="document.getElementById('c-file').click()"><span class="fi">📎</span><p>สลิปหรือหลักฐานการรับเงิน</p><input type="file" id="c-file" multiple accept="image/*,application/pdf" onchange="prev('c-file','c-ip')"></div>
+    <div class="fu" onclick="document.getElementById('c-file').click()">
+      <span class="fi">📎</span><p>สลิปหรือหลักฐานการรับเงิน</p>
+      <input type="file" id="c-file" multiple accept="image/*,application/pdf" onchange="prev('c-file','c-ip')">
+    </div>
     <div class="ip" id="c-ip"></div>
   </div>
-  <button class="sb s2" onclick="sub('cash')">📤 ส่งคำร้องเบิกเงินสด</button>
+  <button class="submit-btn btn-green" onclick="sub('cash')">📤 ส่งคำร้องเบิกเงินสด</button>
 </div>
 </div>
 
-<!-- SECTION 3: PETTY CASH -->
-<div id="sec-petty" class="sec">
+<!-- PAGE 3: PETTY CASH -->
+<div id="page-petty" class="page">
+<div class="page-hdr">
+  <button class="back-btn" onclick="goHome()">← กลับ</button>
+  <span class="page-title" style="color:#00695C">🧾 เงินสดสำรองจ่าย (ขอคืนเงิน)</span>
+</div>
 <div class="card">
-  <div class="ct" style="color:var(--teal)">🧾 ฟอร์มเงินสดสำรองจ่าย (ขอคืนเงิน) <span class="tag" style="background:var(--teal-l);color:var(--teal)">หมวด 3</span></div>
-  <div class="notice">⚠️ สำหรับ <strong>รายจ่ายที่จ่ายไปแล้ว</strong> ขอคืนเงิน · <strong>บังคับแนบใบเสร็จ/ใบกำกับภาษี</strong> ทุกครั้ง</div>
-  <div class="success" id="ok-petty">✅ ส่งคำร้องขอคืนเงินแล้ว! แจ้งหัวหน้าทาง LINE แล้ว</div>
+  <div class="notice">⚠️ สำหรับ <strong>รายจ่ายที่จ่ายไปแล้ว</strong> ขอคืนเงิน · <strong>บังคับแนบใบเสร็จ</strong> ทุกครั้ง</div>
+  <div class="success" id="ok-petty">✅ ส่งคำร้องขอคืนเงินแล้ว! กำลังแจ้งหัวหน้าทาง LINE...</div>
+  <div class="spinner" id="spin-petty">⏳ กำลังส่งข้อมูล...</div>
   <div class="r2">
     <div class="fg"><label>ชื่อผู้ขอคืนเงิน <span class="r">*</span></label><input id="pt-name" type="text" placeholder="ชื่อ-นามสกุล"></div>
     <div class="fg"><label>วันที่จ่ายเงินจริง <span class="r">*</span></label><input id="pt-paydate" type="date"></div>
   </div>
   <div class="fg"><label>สาขา <span class="r">*</span></label>
-    <select id="pt-branch"><option value="">--เลือกสาขา--</option><option>OX</option><option>The 11th Entry</option><option>Bluenin</option><option>Twelvefive125 ริวลาย</option><option>Twelvefive125 ท่าแพ</option></select>
+    <select id="pt-branch">
+      <option value="">--เลือกสาขา--</option>
+      <option>OX</option><option>The 11th Entry</option><option>Bluenin</option>
+      <option>Twelvefive125 วัวลาย</option><option>Twelvefive125 ท่าแพ</option>
+    </select>
   </div>
   <div class="fg"><label>หมวดหมู่ค่าใช้จ่าย <span class="r">*</span></label>
     <div class="cat-grid">
@@ -194,7 +262,7 @@ body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--text);fon
       <label class="cat-item"><input type="radio" name="pt-cat" value="อื่นๆ"> 📝 อื่นๆ</label>
     </div>
   </div>
-  <div class="fg"><label>ชื่อร้านค้า/ผู้รับเงิน <span class="r">*</span></label><input id="pt-shop" type="text" placeholder="ชื่อร้าน หรือผู้รับเงิน"></div>
+  <div class="fg"><label>ชื่อร้านค้า/ผู้รับเงิน <span class="r">*</span></label><input id="pt-shop" type="text" placeholder="ชื่อร้านหรือผู้รับเงิน"></div>
   <div class="fg"><label>รายละเอียดรายจ่าย <span class="r">*</span></label><textarea id="pt-detail" placeholder="อธิบายว่าซื้อ/จ่ายอะไร เพื่ออะไร"></textarea></div>
   <div class="r3">
     <div class="fg"><label>ยอดที่จ่ายไป (บาท) <span class="r">*</span></label><input id="pt-amount" type="number" min="0" step="0.01" placeholder="0.00" oninput="calcTotal()"></div>
@@ -206,59 +274,95 @@ body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--text);fon
     <span class="tv" id="pt-total">0.00 บาท</span>
   </div>
   <div class="fg" style="margin-top:12px"><label>ใบเสร็จ/ใบกำกับภาษี <span class="r">*</span> (บังคับ)</label>
-    <div class="fu fuReq" onclick="document.getElementById('pt-file').click()"><span class="fi">🧾</span><p><strong>บังคับแนบใบเสร็จ</strong> · JPG, PNG, PDF · ต้องชัดเจน อ่านได้</p><input type="file" id="pt-file" multiple accept="image/*,application/pdf" onchange="prev('pt-file','pt-ip')"></div>
+    <div class="fu fuReq" onclick="document.getElementById('pt-file').click()">
+      <span class="fi">🧾</span><p><strong>บังคับแนบใบเสร็จ</strong> · JPG, PNG, PDF</p>
+      <input type="file" id="pt-file" multiple accept="image/*,application/pdf" onchange="prev('pt-file','pt-ip')">
+    </div>
     <div class="ip" id="pt-ip"></div>
   </div>
   <div class="fg"><label>หมายเหตุเพิ่มเติม</label><input id="pt-note" type="text" placeholder="ระบุเพิ่มเติม (ถ้ามี)"></div>
-  <button class="sb s4" onclick="sub('petty')">📤 ส่งคำร้องขอคืนเงินสำรองจ่าย</button>
+  <button class="submit-btn btn-teal" onclick="sub('petty')">📤 ส่งคำร้องขอคืนเงินสำรองจ่าย</button>
 </div>
 </div>
 
-<!-- SECTION 4: REPORT (ผู้ดูแล) -->
-<div id="sec-report" class="sec">
-  <div id="lg-wall">
-    <div class="lgbox">
-      <div style="font-size:38px;margin-bottom:10px">🔐</div>
-      <h2>เข้าสู่ระบบผู้ดูแล</h2>
-      <p>หน้านี้สำหรับผู้ดูแลระบบเท่านั้น</p>
-      <input type="password" id="mgr-pass" placeholder="รหัสผ่านผู้ดูแล" onkeydown="if(event.key==='Enter')mgLogin()">
-      <button onclick="mgLogin()">🔓 เข้าสู่ระบบ</button>
-      <p id="lg-err" style="color:#c62828;font-size:12px;margin-top:8px;display:none">รหัสผ่านไม่ถูกต้อง</p>
-    </div>
-  </div>
-  <div id="rpt-content" style="display:none">
-    <div class="card">
-      <div class="ct" style="color:var(--purple)">📊 รายงานทั้งหมด <span class="tag" style="background:var(--purple-l);color:var(--purple)">เฉพาะผู้ดูแล</span></div>
-      <div class="rf">
-        <select id="r-type"><option value="all">ทุกประเภท</option><option value="purchase">เบิกอุปกรณ์</option><option value="cash">เบิกเงินสด</option><option value="petty">เงินสดสำรองจ่าย</option></select>
-        <select id="r-branch"><option value="all">ทุกสาขา</option><option>OX</option><option>The 11th Entry</option><option>Bluenin</option><option>Twelvefive125 ริวลาย</option><option>Twelvefive125 ท่าแพ</option></select>
-        <select id="r-status"><option value="all">ทุกสถานะ</option><option value="รอ">รอดำเนินการ</option><option value="อนุมัติ">อนุมัติแล้ว</option><option value="ไม่อนุมัติ">ไม่อนุมัติ</option></select>
-        <input type="date" id="r-from">
-        <input type="date" id="r-to">
-        <button onclick="filterRpt()">🔍 ค้นหา</button>
-      </div>
-      <div class="rtw"><table class="rt"><thead><tr><th>#</th><th>ID</th><th>วันที่</th><th>ประเภท</th><th>ชื่อ</th><th>สาขา</th><th>รายละเอียด</th><th>ยอด/จำนวน</th><th>สถานะ</th></tr></thead><tbody id="rpt-body"></tbody></table></div>
-      <p style="font-size:11px;color:var(--muted);margin-top:10px">⚠️ ข้อมูลทั้งหมดอ่านอย่างเดียว · ไม่สามารถแก้ไขหรือลบได้</p>
-    </div>
+<!-- PAGE 4: REPORT -->
+<div id="page-report" class="page">
+<div class="page-hdr">
+  <button class="back-btn" onclick="goHome()">← กลับ</button>
+  <span class="page-title" style="color:#6A1B9A">📊 รายงานทั้งหมด — เฉพาะผู้ดูแล</span>
+</div>
+<div id="lg-wall">
+  <div class="lgbox">
+    <div style="font-size:36px;margin-bottom:10px">🔐</div>
+    <h2>เข้าสู่ระบบผู้ดูแล</h2>
+    <p>หน้านี้สำหรับผู้ดูแลระบบเท่านั้น</p>
+    <input type="password" id="mgr-pass" placeholder="รหัสผ่านผู้ดูแล" onkeydown="if(event.key==='Enter')mgLogin()">
+    <button onclick="mgLogin()">🔓 เข้าสู่ระบบ</button>
+    <p id="lg-err" style="color:#c62828;font-size:12px;margin-top:8px;display:none">รหัสผ่านไม่ถูกต้อง</p>
   </div>
 </div>
+<div id="rpt-content" style="display:none">
+  <div class="card">
+    <div class="rf">
+      <select id="r-type"><option value="all">ทุกประเภท</option><option value="purchase">เบิกอุปกรณ์</option><option value="cash">เบิกเงินสด</option><option value="petty">สำรองจ่าย</option></select>
+      <select id="r-branch"><option value="all">ทุกสาขา</option><option>OX</option><option>The 11th Entry</option><option>Bluenin</option><option>Twelvefive125 วัวลาย</option><option>Twelvefive125 ท่าแพ</option></select>
+      <select id="r-status"><option value="all">ทุกสถานะ</option><option value="รอ">รอดำเนินการ</option><option value="อนุมัติ">อนุมัติแล้ว</option><option value="ไม่อนุมัติ">ไม่อนุมัติ</option></select>
+      <input type="date" id="r-from"><input type="date" id="r-to">
+      <button onclick="filterRpt()">🔍 ค้นหา</button>
+    </div>
+    <div class="rtw">
+      <table class="rt">
+        <thead><tr><th>#</th><th>วันที่</th><th>ประเภท</th><th>ชื่อ</th><th>สาขา</th><th>รายละเอียด</th><th>ยอด</th><th>สถานะ</th></tr></thead>
+        <tbody id="rpt-body"></tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:#9E9E9E;margin-top:10px">⚠️ ข้อมูลอ่านอย่างเดียว · ไม่สามารถแก้ไขหรือลบได้</p>
+  </div>
+</div>
+</div>
+
 </div>
 
 <script>
-const recs = JSON.parse(localStorage.getItem('hh_v3')||'[]');
-const NAVS=['purchase','cash','petty','report'];
-function show(name,btn){
-  NAVS.forEach(n=>{document.getElementById('sec-'+n).classList.remove('on');});
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
-  document.getElementById('sec-'+name).classList.add('on');
-  if(btn)btn.classList.add('active');
+// ============================================================
+// ⚙️ ใส่ URL ของ Apps Script ที่ Deploy แล้วตรงนี้
+// ============================================================
+const APPS_SCRIPT_URL = "YOUR_APPS_SCRIPT_URL_HERE";
+// ============================================================
+
+const recs = JSON.parse(localStorage.getItem('hh_v4')||'[]');
+let urgencyVal = { purchase: 'ปกติ' };
+
+function goPage(name) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('page-'+name).classList.add('on');
+  window.scrollTo(0,0);
 }
-function prev(inputId,previewId){
-  const files=document.getElementById(inputId).files;
-  const p=document.getElementById(previewId);p.innerHTML='';
+function goHome() {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById('page-home').classList.add('on');
+  window.scrollTo(0,0);
+}
+function selUrgency(form, el, selClass) {
+  document.getElementById('ug-'+form).querySelectorAll('.ug-item').forEach(i=>{
+    i.classList.remove('sel-normal','sel-urgent','sel-asap');
+  });
+  el.classList.add(selClass);
+  urgencyVal[form] = el.getAttribute('data-val');
+}
+function prev(inputId, previewId) {
+  const files = document.getElementById(inputId).files;
+  const p = document.getElementById(previewId); p.innerHTML='';
   Array.from(files).forEach(f=>{
-    if(f.type.startsWith('image/')){const r=new FileReader();r.onload=e=>{const i=document.createElement('img');i.src=e.target.result;p.appendChild(i);};r.readAsDataURL(f);}
-    else{const d=document.createElement('div');d.style.cssText='padding:5px 10px;background:#EEE;border-radius:5px;font-size:11px;';d.textContent='📄 '+f.name;p.appendChild(d);}
+    if(f.type.startsWith('image/')){
+      const r=new FileReader();
+      r.onload=e=>{const i=document.createElement('img');i.src=e.target.result;p.appendChild(i);};
+      r.readAsDataURL(f);
+    } else {
+      const d=document.createElement('div');
+      d.style.cssText='padding:4px 9px;background:#EEE;border-radius:5px;font-size:11px;margin:2px';
+      d.textContent='📄 '+f.name; p.appendChild(d);
+    }
   });
 }
 function getChecked(gid){return Array.from(document.querySelectorAll('#'+gid+' input:checked')).map(i=>i.value).join(', ');}
@@ -268,46 +372,82 @@ function calcTotal(){
   const v=parseFloat(document.getElementById('pt-vat').value)||0;
   document.getElementById('pt-total').textContent=(a+v).toFixed(2)+' บาท';
 }
-function sub(type){
-  let record={type,id:'LOCAL-'+Date.now(),submittedAt:new Date().toLocaleString('th-TH'),status:'รอดำเนินการ'};
+
+async function sub(type) {
+  let record={type,submittedAt:new Date().toLocaleString('th-TH'),status:'รอดำเนินการ'};
+
   if(type==='purchase'){
-    const name=document.getElementById('p-name').value;
+    const name=document.getElementById('p-name').value.trim();
     const date=document.getElementById('p-date').value;
     const branch=document.getElementById('p-branch').value;
-    const detail=document.getElementById('p-detail').value;
-    const reason=document.getElementById('p-reason').value;
+    const detail=document.getElementById('p-detail').value.trim();
+    const reason=document.getElementById('p-reason').value.trim();
     if(!name||!date||!branch||!detail||!reason){alert('กรุณากรอกข้อมูลที่มี * ให้ครบ');return;}
-    Object.assign(record,{name,date,branch,category:getChecked('p-cat'),detail,qty:document.getElementById('p-qty').value,reason,urgency:getRadio('p-urg')});
-    ['p-name','p-qty','p-reason','p-detail'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('p-date').valueAsDate=new Date();
-    document.getElementById('p-branch').value='';
-    document.querySelectorAll('#p-cat input').forEach(i=>i.checked=false);
-    document.getElementById('p-ip').innerHTML='';
+    Object.assign(record,{name,date,branch,category:getChecked('p-cat'),detail,qty:document.getElementById('p-qty').value,reason,urgency:urgencyVal['purchase']||'ปกติ'});
   } else if(type==='cash'){
-    const name=document.getElementById('c-name').value;
+    const name=document.getElementById('c-name').value.trim();
     const date=document.getElementById('c-date').value;
     const cashType=getRadio('c-type');
     const amount=document.getElementById('c-amount').value;
     if(!name||!date||!cashType||!amount){alert('กรุณากรอกข้อมูลที่มี * ให้ครบ');return;}
     Object.assign(record,{name,date,cashType,balance:document.getElementById('c-balance').value,amount,approver:document.getElementById('c-approver').value,note:document.getElementById('c-note').value});
-    ['c-name','c-balance','c-amount','c-approver','c-note'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('c-date').valueAsDate=new Date();
-    document.getElementById('c-ip').innerHTML='';
   } else if(type==='petty'){
-    const name=document.getElementById('pt-name').value;
+    const name=document.getElementById('pt-name').value.trim();
     const payDate=document.getElementById('pt-paydate').value;
     const branch=document.getElementById('pt-branch').value;
     const cat=getRadio('pt-cat');
-    const shop=document.getElementById('pt-shop').value;
-    const detail=document.getElementById('pt-detail').value;
+    const shop=document.getElementById('pt-shop').value.trim();
+    const detail=document.getElementById('pt-detail').value.trim();
     const amount=document.getElementById('pt-amount').value;
-    const recno=document.getElementById('pt-recno').value;
+    const recno=document.getElementById('pt-recno').value.trim();
     const files=document.getElementById('pt-file').files;
     if(!name||!payDate||!branch||!cat||!shop||!detail||!amount||!recno){alert('กรุณากรอกข้อมูลที่มี * ให้ครบ');return;}
     if(!files.length){alert('บังคับแนบใบเสร็จอย่างน้อย 1 รายการ');return;}
     const vat=parseFloat(document.getElementById('pt-vat').value)||0;
     const total=(parseFloat(amount)||0)+vat;
     Object.assign(record,{name,payDate,branch,expCategory:cat,shopName:shop,detail,amount,vat,total,receiptNo:recno,note:document.getElementById('pt-note').value});
+  }
+
+  // แสดง spinner
+  const spin = document.getElementById('spin-'+type);
+  if(spin) spin.style.display='block';
+
+  // ส่งไป Apps Script (ถ้ามี URL)
+  if(APPS_SCRIPT_URL && !APPS_SCRIPT_URL.includes('YOUR_')) {
+    try {
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method:'POST',
+        body: JSON.stringify(record)
+      });
+      const json = await res.json();
+      if(json.id) record.id = json.id;
+    } catch(e) {
+      console.log('API error:', e);
+    }
+  } else {
+    record.id = 'LOCAL-'+Date.now();
+  }
+
+  if(spin) spin.style.display='none';
+
+  // บันทึก local + reset
+  recs.push(record);
+  try{localStorage.setItem('hh_v4',JSON.stringify(recs));}catch(e){}
+
+  if(type==='purchase'){
+    ['p-name','p-qty','p-reason','p-detail'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('p-date').valueAsDate=new Date();
+    document.getElementById('p-branch').value='';
+    document.querySelectorAll('#p-cat input').forEach(i=>i.checked=false);
+    document.querySelectorAll('#ug-purchase .ug-item').forEach((el,i)=>{el.classList.remove('sel-normal','sel-urgent','sel-asap');if(i===0)el.classList.add('sel-normal');});
+    urgencyVal['purchase']='ปกติ';
+    document.getElementById('p-ip').innerHTML='';
+  } else if(type==='cash'){
+    ['c-name','c-balance','c-amount','c-approver','c-note'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('c-date').valueAsDate=new Date();
+    document.querySelectorAll('input[name="c-type"]').forEach(i=>i.checked=false);
+    document.getElementById('c-ip').innerHTML='';
+  } else if(type==='petty'){
     ['pt-name','pt-shop','pt-detail','pt-amount','pt-vat','pt-recno','pt-note'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('pt-paydate').valueAsDate=new Date();
     document.getElementById('pt-branch').value='';
@@ -315,12 +455,12 @@ function sub(type){
     document.getElementById('pt-total').textContent='0.00 บาท';
     document.getElementById('pt-ip').innerHTML='';
   }
-  recs.push(record);
-  try{localStorage.setItem('hh_v3',JSON.stringify(recs));}catch(e){}
+
   const ok=document.getElementById('ok-'+type);
   ok.style.display='block';
-  setTimeout(()=>{ok.style.display='none';},4000);
+  setTimeout(()=>{ok.style.display='none';},5000);
 }
+
 function mgLogin(){
   if(document.getElementById('mgr-pass').value==='HungHeng2024!'){
     document.getElementById('lg-wall').style.display='none';
@@ -330,18 +470,17 @@ function mgLogin(){
     document.getElementById('lg-err').style.display='block';
   }
 }
-const TYPE_META={purchase:{label:'เบิกอุปกรณ์',cls:'b1'},cash:{label:'เบิกเงินสด',cls:'b2'},petty:{label:'สำรองจ่าย',cls:'b4'}};
+const TM={purchase:{label:'เบิกอุปกรณ์',cls:'b1'},cash:{label:'เบิกเงินสด',cls:'b2'},petty:{label:'สำรองจ่าย',cls:'b3'}};
 function filterRpt(){
   const type=document.getElementById('r-type').value;
   const branch=document.getElementById('r-branch').value;
   const status=document.getElementById('r-status').value;
   const from=document.getElementById('r-from').value;
   const to=document.getElementById('r-to').value;
-  const filtered=recs.filter(r=>{
+  renderRpt(recs.filter(r=>{
     if(type!=='all'&&r.type!==type)return false;
-    const rb=r.branch||'';
-    if(branch!=='all'&&rb!==branch)return false;
-    const st=r.status||'รอดำเนินการ';
+    if(branch!=='all'&&(r.branch||'')!==branch)return false;
+    const st=r.status||'';
     if(status==='รอ'&&!st.includes('รอ'))return false;
     if(status==='อนุมัติ'&&!st.includes('อนุมัติ'))return false;
     if(status==='ไม่อนุมัติ'&&!st.includes('ไม่อนุมัติ'))return false;
@@ -349,24 +488,23 @@ function filterRpt(){
     if(from&&d<from)return false;
     if(to&&d>to)return false;
     return true;
-  });
-  renderRpt(filtered);
+  }));
 }
 function renderRpt(list){
   const tb=document.getElementById('rpt-body');
-  if(!list.length){tb.innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--muted)">ไม่พบข้อมูล</td></tr>';return;}
+  if(!list.length){tb.innerHTML='<tr><td colspan="8" style="text-align:center;padding:20px;color:#9E9E9E">ไม่พบข้อมูล</td></tr>';return;}
   tb.innerHTML=list.map((r,i)=>{
-    const m=TYPE_META[r.type]||{label:r.type,cls:'b1'};
-    const name=r.name||'';
-    const branch=r.branch||'';
-    const detail=r.detail||r.cashType||'';
-    const qty=r.qty||(r.total?r.total+' บาท':r.amount?r.amount+' บาท':'');
+    const m=TM[r.type]||{label:r.type,cls:'b1'};
     const st=r.status||'รอดำเนินการ';
     const stCls=st.includes('อนุมัติแล้ว')?'bOk':st.includes('ไม่อนุมัติ')?'bNo':'bPend';
-    return `<tr><td>${i+1}</td><td style="font-size:11px;font-family:monospace">${r.id||''}</td><td style="white-space:nowrap;font-size:11px">${r.date||r.payDate||''}</td><td><span class="bd ${m.cls}">${m.label}</span></td><td>${name}</td><td>${branch}</td><td style="max-width:180px;font-size:12px">${detail}</td><td style="white-space:nowrap">${qty}</td><td><span class="bd ${stCls}">${st}</span></td></tr>`;
+    const qty=r.qty||(r.total?r.total+' บาท':r.amount?r.amount+' บาท':'');
+    return `<tr><td>${i+1}</td><td style="font-size:11px;white-space:nowrap">${r.date||r.payDate||''}</td><td><span class="bd ${m.cls}">${m.label}</span></td><td>${r.name||''}</td><td>${r.branch||''}</td><td style="max-width:160px;font-size:12px">${r.detail||r.cashType||''}</td><td style="white-space:nowrap">${qty}</td><td><span class="bd ${stCls}">${st}</span></td></tr>`;
   }).join('');
 }
+
 document.getElementById('p-date').valueAsDate=new Date();
 document.getElementById('c-date').valueAsDate=new Date();
 document.getElementById('pt-paydate').valueAsDate=new Date();
 </script>
+</body>
+</html>
